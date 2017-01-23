@@ -1,0 +1,3 @@
+nohup php server.php start -d
+chromium-browser --app=http://localhost:2022/
+nohup php server.php stop

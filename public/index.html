@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kidesktop</title>
+  <style>
+  body {
+  	  padding: 0;
+  	  margin:0;
+  }
+  * {
+  	  font-family: verdana;
+  }
+  #level1 p {
+  	  width: 100%;
+  }
+  #level1 button {
+  	  width: 100%;
+  }
+  .btn {
+
+  background: #599bb3 linear-gradient(to bottom, #599bb3 5%, #408c99 100%) repeat scroll 0 0;
+  border-radius: 8px;
+  box-shadow: 0 10px 14px -7px #276873;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 13px 32px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #3d768a;
+
+  }
+  </style>
+  
+</head>
+<body>
+
+	<div id="desktop">
+	
+	<!--
+	<button onclick="openURL('http://www.fragfinn.de');">FragFinn</button>
+	<button onclick="openURL('http://www.mad5.de');">mad5</button>
+	<button onclick="openApp('galculator');">Taschenrechner</button>
+	
+	<hr>
+	-->
+	
+		<div style="width:33%;float:left;padding: 20px;box-sizing:border-box;" id="level1">
+		
+			<p class="perspective">
+				<button class="btn btn-8 btn-8c" onclick="level1('Internet');">Internet</button>
+			</p>
+			<p class="perspective">
+				<button class="btn btn-8 btn-8c" onclick="level1('Bilder');">Bilder</button>
+			</p>
+			<p class="perspective">
+				<button class="btn btn-8 btn-8c" onclick="level1('Musik');">Musik</button>
+			</p>
+			<p class="perspective">
+				<button class="btn btn-8 btn-8c" onclick="level1('Hoerspiele');">Hörspiele</button>
+			</p>
+			<p class="perspective">
+				<button class="btn btn-8 btn-8c" onclick="level1('Programme');">Programme</button>
+			</p>
+			
+		
+		</div>
+		<div style="width:66%;float:left" id="level2">
+			
+			<div rel="Internet" class="level2">
+				<button class="btn" onclick="openURL('http://www.tivi.de/fernsehen/logo/start/index.html');">Logo</button>
+				<button class="btn" onclick="openURL('https://www.fragfinn.de/');">FragFinn</button>
+				<button class="btn" onclick="openURL('http://www.baeren-blatt.de/');">Bären-Blatt</button>
+			</div>
+			
+			<div rel="Bilder" class="level2">
+			Bilder
+			</div>
+		
+		</div>
+		
+	
+	</div>
+
+  <script src="./jquery.min.js"></script>
+  <script src="./socket.io-client/socket.io.js"></script>
+  <script src="./main.js"></script>
+  
+  <script>
+  function level1(bereich) {
+  	  $('.level2').hide();
+  	  $(".level2[rel='"+bereich+"']").fadeIn();
+  }
+  $(function() {
+  		  $('.level2').hide();
+  });
+  </script>
+  
+</body>
+</html>
