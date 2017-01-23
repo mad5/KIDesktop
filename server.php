@@ -18,6 +18,8 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	print_r($data);
     	
     	if($data["action"]=="initrun") {
+    		exec('wmctrl -r "myKidesktop" -b add,below');
+    		exec('wmctrl -r "myKidesktop" -b add,maximized_vert,maximized_horz');
     		//exec("");
     	}
     	
