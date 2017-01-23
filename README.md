@@ -16,3 +16,10 @@ __phpsocket.io__
 A server side alternative implementation of socket.io in PHP based on Workerman  
 [https://github.com/walkor/phpsocket.io](https://github.com/walkor/phpsocket.io)
 
+__workerman__  
+An asynchronous event driven PHP framework for easily building fast, scalable network applications.  
+[https://github.com/walkor/Workerman](https://github.com/walkor/Workerman)
+
+__jquery__  
+jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers.  
+[https://jquery.com/](https://jquery.com/)
