@@ -1,3 +1,14 @@
 nohup php server.php start -d
-chromium-browser --app=http://localhost:2022/
+
+nohup chromium-browser \
+--disable-translate \
+--disable-autofill-keyboard-accessory-view \
+--disable-default-apps \
+--disable-extensions \
+--disable-infobars \
+--disable-notifications \
+--disable-prompt-on-repost \
+--disable-popup-blocking \
+--app=http://localhost:2022/
+
 nohup php server.php stop
