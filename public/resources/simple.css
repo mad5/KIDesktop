@@ -1,0 +1,35 @@
+html, body{ height: 100% }
+
+body {
+	background: url(./bg.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+
+	font-family: "Open Sans", sans-serif;
+	background-color: #fff;
+
+	height: 100%;
+	overflow: hidden;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+.wm-space {
+	user-select: none;
+}
+
+.buttonbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+
+	z-index: 0;
+	padding: 0 20px;
+}
+

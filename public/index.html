@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>myKidesktop</title>
+  
+  <link href='./resources/simple.css' rel='stylesheet' type='text/css' />
+  <link href='./resources/ventus.css' rel='stylesheet' type='text/css' />
+		
   <style>
   body {
   	  padding: 0;
@@ -38,7 +42,7 @@
 </head>
 <body>
 
-	<div id="desktop">
+	<div class="buttonbar" id="desktop">
 	
 	<!--
 	<button onclick="openURL('http://www.fragfinn.de');">FragFinn</button>
@@ -49,6 +53,11 @@
 	-->
 	
 		<div style="width:33%;float:left;padding: 20px;box-sizing:border-box;" id="level1">
+		
+		<button class="button create-button">Create Window</button>
+			<button class="button expose-button">Expose</button>
+			
+			<button onclick="socket.emit('action', {'action': 'initrun'} );">INIT</button>
 		
 			<p class="perspective">
 				<button class="btn btn-8 btn-8c" onclick="level1('Internet');">Internet</button>
@@ -87,7 +96,8 @@
 	
 	</div>
 
-  <script src="./jquery.min.js"></script>
+  <script src="./resources/jquery.min.js"></script>
+  <script type="text/javascript" src="./resources/ventus.js"></script>
   <script src="./socket.io-client/socket.io.js"></script>
   <script src="./main.js"></script>
   
@@ -98,6 +108,39 @@
   }
   $(function() {
   		  $('.level2').hide();
+  		  
+  		  var wm = new Ventus.WindowManager();
+
+		var pos = 50;
+		var num = 1;
+		window.wm = wm; // For debugging reasons
+
+		$('.create-button').click(function(){
+			wm.createWindow({
+				title: 'Window ' + (num++),
+				x: (pos += 60),
+				y: pos,
+				width: 400,
+				height: 250,
+
+				events: {
+					closed: function() {
+						this.destroy();
+					}
+				}
+			})
+			.open();
+		});
+
+		$('.expose-button').click(_.throttle(function(){
+			if(wm.mode === 'expose')
+				wm.mode = 'default';
+			else
+				wm.mode = 'expose';
+
+			return false;
+		}, 1000));
+  		  
   });
   </script>
   
