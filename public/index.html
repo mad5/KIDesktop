@@ -54,7 +54,8 @@
 	
 		<div style="width:33%;float:left;padding: 20px;box-sizing:border-box;" id="level1">
 		
-		<button class="button create-button">Create Window</button>
+			<!--
+			<button class="button create-button">Create Window</button>
 			<button class="button expose-button">Expose</button>
 			
 			<button onclick="socket.emit('action', {'action': 'initrun'} );">INIT</button>
@@ -74,12 +75,13 @@
 			<p class="perspective">
 				<button class="btn btn-8 btn-8c" onclick="level1('Programme');">Programme</button>
 			</p>
-			
+			-->
 		
 		</div>
 		<div style="width:66%;float:left" id="level2">
 			<div style="padding: 20px;box-sizing:border-box;">
 			
+				<!--
 				<div rel="Internet" class="level2">
 					<button class="btn" onclick="openURL('http://www.tivi.de/fernsehen/logo/start/index.html');">Logo</button>
 					<button class="btn" onclick="openURL('https://www.fragfinn.de/');">FragFinn</button>
@@ -89,6 +91,7 @@
 				<div rel="Bilder" class="level2">
 				Bilder
 				</div>
+				-->
 				
 			</div>
 		</div>
@@ -100,18 +103,61 @@
   <script type="text/javascript" src="./resources/ventus.js"></script>
   <script src="./socket.io-client/socket.io.js"></script>
   <script src="./main.js"></script>
+  <script src="./config.js"></script>
   
   <script>
   function level1(bereich) {
   	  $('.level2').hide();
   	  $(".level2[rel='"+bereich+"']").fadeIn();
   }
+  
   $(function() {
-  		  $('.level2').hide();
+			$.ajax({
+				"url": CONFIG.apiserver,
+				"type": "post",
+				"dataType": "json",
+				"data": {"action": "listbereiche", "key": CONFIG.key},
+				"success": function(res) {
+					var html = "";
+					console.log(res);
+					for(var i=0;i<res.length;i++) {
+						html += "<div style='float:left;padding:20px;text-align:center;cursor:pointer;' onclick=\"openBereich('"+res[i].id+"', '"+res[i].titel+"');\">";
+						html += '<img src="https://www.mad5.de/kideskadm/uploads/'+res[i].icon+'" width=100><br>';
+						html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;'>"+res[i].titel+"</span>";
+						html += "</div>";
+					}
+					
+					$('#level1').html(html);
+				}
+			});
+		  });
+  
+  
+  var pos = 50;
+  function openBereich(id, titel) {
+			wm.createWindow({
+				title: titel,
+				x: (pos += 60),
+				y: pos,
+				width: 500,
+				height: 300,
+
+				events: {
+					closed: function() {
+						this.destroy();
+					}
+				}
+			})
+			.open();
+  }
+  
+  $(function() {
+  		  
+		  
   		  
   		  var wm = new Ventus.WindowManager();
 
-		var pos = 50;
+		
 		var num = 1;
 		window.wm = wm; // For debugging reasons
 
