@@ -12,6 +12,10 @@ A pi-driven Kids-Desktop for safe internet- and application-usage
 
 # Other libraries and sources used
 
+__Ventus WM__  
+A window manager written in Javascript, HTML5 and CSS3.
+[https://github.com/rlamana/Ventus](https://github.com/rlamana/Ventus)
+
 __phpsocket.io__  
 A server side alternative implementation of socket.io in PHP based on Workerman  
 [https://github.com/walkor/phpsocket.io](https://github.com/walkor/phpsocket.io)
