@@ -18,6 +18,7 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	print_r($data);
     	
     	if($data["action"]=="initrun") {
+    		exec('wmctrl -r "myKidesktop" -o 0,0');
     		exec('wmctrl -r "myKidesktop" -b add,below');
     		exec('wmctrl -r "myKidesktop" -b add,maximized_vert,maximized_horz');
     		//exec("");
@@ -25,7 +26,17 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	
     	if($data["action"]=="openurl") {
     		$url = $data["url"];
-    		$E = "chromium-browser --app=".escapeshellarg($url);
+		$disable = array(
+			"--disable-translate",
+			"--disable-autofill-keyboard-accessory-view",
+			"--disable-default-apps",
+			"--disable-extensions",
+			"--disable-infobars",
+			"--disable-notifications",
+			"--disable-prompt-on-repost",
+			"--disable-popup-blocking",
+		);
+    		$E = "chromium-browser ".implode(" ", $disable)." --app=".escapeshellarg($url);
     		exec($E." > /dev/null &");
     	}
     	
