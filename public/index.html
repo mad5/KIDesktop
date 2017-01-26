@@ -103,7 +103,7 @@
   <script type="text/javascript" src="./resources/ventus.js"></script>
   <script src="./socket.io-client/socket.io.js"></script>
   <script src="./main.js"></script>
-  <script src="./config.js"></script>
+  <script src="./config.js?x=1"></script>
   
   <script>
   function level1(bereich) {
@@ -122,7 +122,7 @@
 					console.log(res);
 					for(var i=0;i<res.length;i++) {
 						html += "<div style='float:left;padding:20px;text-align:center;cursor:pointer;' onclick=\"openBereich('"+res[i].id+"', '"+res[i].titel+"');\">";
-						html += '<img src="https://www.mad5.de/kideskadm/uploads/'+res[i].icon+'" width=100><br>';
+						html += '<img src="'+CONFIG.imgsrv+res[i].icon+'" width=100><br>';
 						html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;'>"+res[i].titel+"</span>";
 						html += "</div>";
 					}
@@ -132,26 +132,63 @@
 			});
 		  });
   
+  var eintraege = {};
   
   var pos = 50;
   function openBereich(id, titel) {
-			wm.createWindow({
+	if($(".ventusWin"+id).length>0) {
+		return;
+	}
+	
+	var html = "<div class='ventusContent"+id+"'>...</div>";
+	$('body').append(html);
+	
+			wm.createWindow.fromQuery(".ventusContent"+id,{
 				title: titel,
 				x: (pos += 60),
 				y: pos,
+				classname: "ventusWin"+id,
 				width: 500,
 				height: 300,
 
 				events: {
 					closed: function() {
 						this.destroy();
+						$('.ventusWin'+id).remove();
 					}
 				}
 			})
 			.open();
+			
+			$.ajax({
+				"url":CONFIG.apiserver,
+				"type":"post",
+				"dataType": "json",
+				"data": {"action":"listeintraege", "key": CONFIG.key,"bereich":id},
+				"success": function(data) {
+					console.log(data);
+					var html = "";
+					for(var i=0;i<data.length;i++) {
+						eintraege[data[i].id] = data[i];
+						html += "<div style='float:left;margin:10px;text-align:center;width:90px;height:90px;cursor:pointer;' onclick=\"openEintrag("+data[i].id+");\">";
+						html += '<div style="height:75px;"><img src="'+CONFIG.imgsrv+data[i].icon+'" height=75></div>';
+						html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;font-size:0.8em;max-width:85px;'>"+data[i].titel+"</span>";
+						html += "</div>";
+					}
+					
+					$(".ventusContent"+id).html(html);
+				}
+			});
+			
   }
-  
-  $(function() {
+  function openEintrag(id) {
+	var E = eintraege[id];
+	if(E.typ=="webseite") {
+		openURL(E.befehl);
+	}
+  }
+
+$(function() {
   		  
 		  
   		  
