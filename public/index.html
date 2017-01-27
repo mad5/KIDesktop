@@ -137,7 +137,7 @@
 			for(var i=0;i<data.length;i++) {
 				eintraege[data[i].id] = data[i];
 				html += "<div style='float:left;margin:10px;text-align:center;width:90px;height:90px;cursor:pointer;' onclick=\"openEintrag("+data[i].id+");\">";
-				html += '<div style="height:75px;"><img src="'+CONFIG.imgsrv+data[i].icon+'" height=75></div>';
+				html += '<div style="height:75px;"><img src="'+data[i].icon+'" height=75></div>';
 				html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;font-size:0.8em;max-width:85px;'>"+data[i].titel+"</span>";
 				html += "</div>";
 			}
