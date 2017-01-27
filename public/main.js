@@ -11,6 +11,9 @@ $(function() {
 			if(data.action=="clear") {
 				//$('#desktop').html("---");
 			}
+			if(data.action=="dbg") {
+				$('#dbg').prepend("<div style='border-bottom:solid 1px gray;padding-bottom:5px;margin-bottom:5px;'>"+data.info+"</div>");
+			}
 				
   });
   var href = window.location.href+"";
@@ -18,6 +21,7 @@ $(function() {
   
   socket.emit('action', {"action": "initrun", "cmd": cmd} );
   
+  if(cmd=="test") $('#dbg').show();
 	
 });
 

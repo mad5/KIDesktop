@@ -3,3 +3,8 @@
 *.log
 *.pid
 /public/apps/
+/tools/mnt/
+/tools/samba.conf
+/.smbcred
+/config.json
+/public/config.js

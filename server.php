@@ -35,17 +35,20 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	}
     	
     	if($data["action"]=="runcommand") {
-    		exec($data["app"]." > /dev/null &");
+    		#exec($data["app"]." > /dev/null &");
+		$a = exec($data["app"]." > /dev/null &", $b);
+		$socket->emit('action', array("action"=>"dbg", "info" => $E."<br>".print_r($a,1)."<br>".print_r($b,1)));
     	}
 
     	if($data["action"]=="runapp") {
     		$appname = $data["app"];
     		$E = "chromium-browser ".implode(" ", $disable)." --app=http://localhost:2022/apps/".$appname."/index.php";
 		//echo $E."\n";
-    		exec($E." > /dev/null &");
+    		$a = exec($E." > /dev/null &", $b);
+		$socket->emit('action', array("action"=>"dbg", "info" => $E."<br>".print_r($a,1)."<br>".print_r($b,1)));
     	}
-    	
-    	$socket->emit('action', $data);
+    	$socket->emit('action', array("action"=>"dbg", "info" => print_r($data,1)));
+    	#$socket->emit('action', $data);
     });
    
 });

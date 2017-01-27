@@ -8,8 +8,8 @@ then
 	# copy background-image to splash-screen
 	sudo cp -f public/resources/bg.png /usr/share/plymouth/themes/pix/splash.png
 
-	# remote resolv.conf and set hosts-entries
-	sudo php init.php
+	# remove resolv.conf and set hosts-entries
+	sudo php init.php &
 
 	# kill panel for fullscreen-mode
 	sudo killall lxpanel
@@ -17,6 +17,8 @@ then
 	# kill desktop-manager
 	sudo killall pcmanfm
 fi
+
+nohup php tools/samba.php 2>/dev/null
 
 # start websocket-server as daemon
 nohup php server.php start -d 2>/dev/null
