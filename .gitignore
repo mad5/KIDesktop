@@ -1,4 +1,5 @@
 *~
-nohup.out
+/nohup.out
 *.log
 *.pid
+/public/apps/

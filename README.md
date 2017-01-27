@@ -12,6 +12,10 @@ A pi-driven Kids-Desktop for safe internet- and application-usage
 
 	./run
 	
+or
+	
+	./run test	#not set to background and titlebar not hidden
+	
 # run at boottime
 
 rename config.json.dist to config.json and edit.  

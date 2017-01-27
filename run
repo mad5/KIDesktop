@@ -3,7 +3,7 @@
 # set local directory to Kidesktop-folder
 cd "$(dirname "$0")"
 
-if [ $1 = "full" ]
+if [ "$1" = "full" ]
 then
 	# copy background-image to splash-screen
 	sudo cp -f public/resources/bg.png /usr/share/plymouth/themes/pix/splash.png
@@ -19,7 +19,7 @@ then
 fi
 
 # start websocket-server as daemon
-nohup php server.php start -d
+nohup php server.php start -d 2>/dev/null
 
 # start chromium-browser and point to websocket-server
 nohup chromium-browser \
@@ -31,12 +31,12 @@ nohup chromium-browser \
 --disable-notifications \
 --disable-prompt-on-repost \
 --disable-popup-blocking \
---app=http://localhost:2022/
+--app=http://localhost:2022/?$1 2>/dev/null
 
 # stop websocket-server
-nohup php server.php stop
+nohup php server.php stop 2>/dev/null
 
-if [ $1 = "full" ]
+if [ "$1" = "full" ]
 then
 	# restart panel
 	lxpanel --profile LXDE-pi &

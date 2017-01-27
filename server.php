@@ -17,12 +17,14 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	//$socket->to("testraum")->emit('action', $data);
     	print_r($data);
     	
+    	$disable = array();
+    	
     	if($data["action"]=="initrun") {
     		exec('wmctrl -r "myKidesktop" -o 0,0');
-    		exec('wmctrl -r "myKidesktop" -b add,below,undecorate');
+    		if($data["cmd"]!="test") exec('wmctrl -r "myKidesktop" -b add,below');
     		exec('wmctrl -r "myKidesktop" -b add,maximized_vert,maximized_horz');
-    		sleep(1);
-		exec("xdotool mousemove 100 10 && xdotool click 3 && xdotool key t");
+    		if($data["cmd"]=="full") sleep(1);
+		if($data["cmd"]=="full") exec("xdotool mousemove 100 10 && xdotool click 3 && xdotool key t");
     	}
     	
     	if($data["action"]=="openurl") {
@@ -32,8 +34,15 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     		exec($E." > /dev/null &");
     	}
     	
-    	if($data["action"]=="runapp") {
+    	if($data["action"]=="runcommand") {
     		exec($data["app"]." > /dev/null &");
+    	}
+
+    	if($data["action"]=="runapp") {
+    		$appname = $data["app"];
+    		$E = "chromium-browser ".implode(" ", $disable)." --app=http://localhost:2022/apps/".$appname."/index.php";
+		//echo $E."\n";
+    		exec($E." > /dev/null &");
     	}
     	
     	$socket->emit('action', $data);

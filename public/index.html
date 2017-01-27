@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>myKidesktop</title>
-  
-  <link href='./resources/simple.css' rel='stylesheet' type='text/css' />
-  <link href='./resources/ventus.css' rel='stylesheet' type='text/css' />
-		
-  <style>
+<meta charset="UTF-8">
+<title>myKidesktop</title>
+
+<link href='./resources/simple.css' rel='stylesheet' type='text/css' />
+<link href='./resources/ventus.css' rel='stylesheet' type='text/css' />
+	
+<style>
   body {
   	  padding: 0;
   	  margin:0;
@@ -37,7 +37,13 @@
   text-shadow: 0 1px 0 #3d768a;
 
   }
-  </style>
+</style>
+  
+<script src="./resources/jquery.min.js"></script>
+<script type="text/javascript" src="./resources/ventus.js"></script>
+<script src="./socket.io-client/socket.io.js"></script>
+<script src="./main.js?x=3"></script>
+<script src="./config.js?x=1"></script>
   
 </head>
 <body>
@@ -55,44 +61,11 @@
 	
 		<div style="width:33%;float:left;padding: 20px;box-sizing:border-box;" id="level1">
 		
-			<!--
-			<button class="button create-button">Create Window</button>
-			<button class="button expose-button">Expose</button>
-			
-			<button onclick="socket.emit('action', {'action': 'initrun'} );">INIT</button>
-		
-			<p class="perspective">
-				<button class="btn btn-8 btn-8c" onclick="level1('Internet');">Internet</button>
-			</p>
-			<p class="perspective">
-				<button class="btn btn-8 btn-8c" onclick="level1('Bilder');">Bilder</button>
-			</p>
-			<p class="perspective">
-				<button class="btn btn-8 btn-8c" onclick="level1('Musik');">Musik</button>
-			</p>
-			<p class="perspective">
-				<button class="btn btn-8 btn-8c" onclick="level1('Hoerspiele');">Hörspiele</button>
-			</p>
-			<p class="perspective">
-				<button class="btn btn-8 btn-8c" onclick="level1('Programme');">Programme</button>
-			</p>
-			-->
 		
 		</div>
 		<div style="width:66%;float:left" id="level2">
 			<div style="padding: 20px;box-sizing:border-box;">
 			
-				<!--
-				<div rel="Internet" class="level2">
-					<button class="btn" onclick="openURL('http://www.tivi.de/fernsehen/logo/start/index.html');">Logo</button>
-					<button class="btn" onclick="openURL('https://www.fragfinn.de/');">FragFinn</button>
-					<button class="btn" onclick="openURL('http://www.baeren-blatt.de/');">Bären-Blatt</button>
-				</div>
-				
-				<div rel="Bilder" class="level2">
-				Bilder
-				</div>
-				-->
 				
 			</div>
 		</div>
@@ -100,39 +73,31 @@
 	
 	</div>
 
-  <script src="./resources/jquery.min.js"></script>
-  <script type="text/javascript" src="./resources/ventus.js"></script>
-  <script src="./socket.io-client/socket.io.js"></script>
-  <script src="./main.js"></script>
-  <script src="./config.js?x=1"></script>
+
   
-  <script>
-  function level1(bereich) {
-  	  $('.level2').hide();
-  	  $(".level2[rel='"+bereich+"']").fadeIn();
-  }
+<script>
   
   $(function() {
-			$.ajax({
-				"url": CONFIG.apiserver,
-				"type": "post",
-				"dataType": "json",
-				"data": {"action": "listbereiche", "key": CONFIG.key},
-				"success": function(res) {
-					var html = "";
-					console.log(res);
-					for(var i=0;i<res.length;i++) {
-						html += "<div style='float:left;padding:20px;text-align:center;cursor:pointer;' onclick=\"openBereich('"+res[i].id+"', '"+res[i].titel+"');\">";
-						html += '<img src="'+CONFIG.imgsrv+res[i].icon+'" width=100><br>';
-						html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;'>"+res[i].titel+"</span>";
-						html += "</div>";
-					}
-					
-					$('#level1').html(html);
-				}
-			});
-		  });
-  
+	$.ajax({
+		"url": CONFIG.apiserver,
+		"type": "post",
+		"dataType": "json",
+		"data": {"action": "listbereiche", "key": CONFIG.key},
+		"success": function(res) {
+			var html = "";
+			console.log(res);
+			for(var i=0;i<res.length;i++) {
+				html += "<div style='float:left;padding:20px;text-align:center;cursor:pointer;' onclick=\"openBereich('"+res[i].id+"', '"+res[i].titel+"');\">";
+				html += '<img src="'+CONFIG.imgsrv+res[i].icon+'" width=100><br>';
+				html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;'>"+res[i].titel+"</span>";
+				html += "</div>";
+			}
+			
+			$('#level1').html(html);
+		}
+	});
+  });
+
   var eintraege = {};
   
   var pos = 50;
@@ -144,44 +109,45 @@
 	var html = "<div class='ventusContent"+id+"'>...</div>";
 	$('body').append(html);
 	
-			wm.createWindow.fromQuery(".ventusContent"+id,{
-				title: titel,
-				x: (pos += 60),
-				y: pos,
-				classname: "ventusWin"+id,
-				width: 500,
-				height: 300,
+	wm.createWindow.fromQuery(".ventusContent"+id,{
+		title: titel,
+		x: (pos += 60),
+		y: pos,
+		classname: "ventusWin"+id,
+		width: 500,
+		height: 300,
 
-				events: {
-					closed: function() {
-						this.destroy();
-						$('.ventusWin'+id).remove();
-					}
-				}
-			})
-			.open();
+		events: {
+			closed: function() {
+				this.destroy();
+				$('.ventusWin'+id).remove();
+			}
+		}
+	})
+	.open();
+	
+	$.ajax({
+		"url":CONFIG.apiserver,
+		"type":"post",
+		"dataType": "json",
+		"data": {"action":"listeintraege", "key": CONFIG.key,"bereich":id},
+		"success": function(data) {
+			console.log(data);
+			var html = "";
+			for(var i=0;i<data.length;i++) {
+				eintraege[data[i].id] = data[i];
+				html += "<div style='float:left;margin:10px;text-align:center;width:90px;height:90px;cursor:pointer;' onclick=\"openEintrag("+data[i].id+");\">";
+				html += '<div style="height:75px;"><img src="'+CONFIG.imgsrv+data[i].icon+'" height=75></div>';
+				html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;font-size:0.8em;max-width:85px;'>"+data[i].titel+"</span>";
+				html += "</div>";
+			}
 			
-			$.ajax({
-				"url":CONFIG.apiserver,
-				"type":"post",
-				"dataType": "json",
-				"data": {"action":"listeintraege", "key": CONFIG.key,"bereich":id},
-				"success": function(data) {
-					console.log(data);
-					var html = "";
-					for(var i=0;i<data.length;i++) {
-						eintraege[data[i].id] = data[i];
-						html += "<div style='float:left;margin:10px;text-align:center;width:90px;height:90px;cursor:pointer;' onclick=\"openEintrag("+data[i].id+");\">";
-						html += '<div style="height:75px;"><img src="'+CONFIG.imgsrv+data[i].icon+'" height=75></div>';
-						html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;font-size:0.8em;max-width:85px;'>"+data[i].titel+"</span>";
-						html += "</div>";
-					}
-					
-					$(".ventusContent"+id).html(html);
-				}
-			});
+			$(".ventusContent"+id).html(html);
+		}
+	});
 			
   }
+  
   function openEintrag(id) {
 	var E = eintraege[id];
 	if(E.typ=="webseite") {
@@ -189,45 +155,28 @@
 	}
 	//alert(E.typ+"\n"+E.befehl);
 	if(E.typ=="programm") {
+		openCommand(E.befehl);
+	}
+	
+	if(E.typ=="app") {
 		openApp(E.befehl);
 	}
   }
 
-$(function() {
-  		  
-		  
-  		  
-  		  var wm = new Ventus.WindowManager();
+  $(function() {
+	var wm = new Ventus.WindowManager();
+	
+	var num = 1;
+	window.wm = wm; // For debugging reasons
 
-		
-		var num = 1;
-		window.wm = wm; // For debugging reasons
+	$('.expose-button').click(_.throttle(function(){
+		if(wm.mode === 'expose')
+			wm.mode = 'default';
+		else
+			wm.mode = 'expose';
 
-		$('.create-button').click(function(){
-			wm.createWindow({
-				title: 'Window ' + (num++),
-				x: (pos += 60),
-				y: pos,
-				width: 400,
-				height: 250,
-
-				events: {
-					closed: function() {
-						this.destroy();
-					}
-				}
-			})
-			.open();
-		});
-
-		$('.expose-button').click(_.throttle(function(){
-			if(wm.mode === 'expose')
-				wm.mode = 'default';
-			else
-				wm.mode = 'expose';
-
-			return false;
-		}, 1000));
+		return false;
+	}, 1000));
   		  
   });
   </script>
