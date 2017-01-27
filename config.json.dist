@@ -1,0 +1,7 @@
+{
+"kideskadmsrv": "HOST2KIDESKADM-SERVER",
+"key": "DeviceKey",
+"hosts": [
+    "allowedhostname.com"
+]
+}

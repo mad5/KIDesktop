@@ -2,15 +2,28 @@
 A pi-driven Kids-Desktop for safe internet- and application-usage
 
 
-# Install
+# install
 
-	sudo apt-get install wmctrl php5 chromium-browser
+	sudo apt-get install wmctrl xdotool php5chromium-browser
 	git clone https://github.com/mad5/Kidesktop.git
 	cd Kidesktop
+	
+# run for testing
+
 	./run
+	
+# run at boottime
 
+rename config.json.dist to config.json and edit.  
+Set hostname to your __Kideskadm__-installation.  
+Set your devicekey. This is generated within __Kideskadm__.  
+Add allowed hosts. The host where your __Kideskadm__ is installed must set in here.  
 
-# Other libraries and sources used
+edit ~/.config/,xsession/LXDE.pi/autostart and add at the end
+
+	@/home/pi/Kidesktop/run full
+
+# other libraries and sources used
 
 __Ventus WM__  
 A window manager written in Javascript, HTML5 and CSS3.

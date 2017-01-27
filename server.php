@@ -21,7 +21,8 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     		exec('wmctrl -r "myKidesktop" -o 0,0');
     		exec('wmctrl -r "myKidesktop" -b add,below,undecorate');
     		exec('wmctrl -r "myKidesktop" -b add,maximized_vert,maximized_horz');
-    		//exec("");
+    		sleep(1);
+		exec("xdotool mousemove 100 10 && xdotool click 3 && xdotool key t");
     	}
     	
     	if($data["action"]=="openurl") {

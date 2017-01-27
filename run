@@ -1,7 +1,27 @@
 #!/bin/bash
+
+# set local directory to Kidesktop-folder
 cd "$(dirname "$0")"
+
+if [ $1 = "full" ]
+then
+	# copy background-image to splash-screen
+	sudo cp -f public/resources/bg.png /usr/share/plymouth/themes/pix/splash.png
+
+	# remote resolv.conf and set hosts-entries
+	sudo php init.php
+
+	# kill panel for fullscreen-mode
+	sudo killall lxpanel
+
+	# kill desktop-manager
+	sudo killall pcmanfm
+fi
+
+# start websocket-server as daemon
 nohup php server.php start -d
 
+# start chromium-browser and point to websocket-server
 nohup chromium-browser \
 --disable-translate \
 --disable-autofill-keyboard-accessory-view \
@@ -13,4 +33,18 @@ nohup chromium-browser \
 --disable-popup-blocking \
 --app=http://localhost:2022/
 
+# stop websocket-server
 nohup php server.php stop
+
+if [ $1 = "full" ]
+then
+	# restart panel
+	lxpanel --profile LXDE-pi &
+
+	# restart desktop-manager
+	pcmanfm --desktop --profile LXDE-pi &
+
+	# copy resolv.conf back from backup
+	sudo cp -f /etc/resolv.conf.orig /etc/resolv.conf
+fi
+

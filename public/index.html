@@ -51,6 +51,7 @@
 	
 	<hr>
 	-->
+	<button onclick="openApp('galculator');">Taschenrechner</button>
 	
 		<div style="width:33%;float:left;padding: 20px;box-sizing:border-box;" id="level1">
 		
@@ -185,6 +186,10 @@
 	var E = eintraege[id];
 	if(E.typ=="webseite") {
 		openURL(E.befehl);
+	}
+	alert(E.typ+"\n"+E.befehl);
+	if(E.typ=="programm") {
+		openApp(E.befehl);
 	}
   }
 
