@@ -4,7 +4,11 @@ A pi-driven Kids-Desktop for safe internet- and application-usage
 
 # install
 
-	sudo apt-get install wmctrl xdotool php5chromium-browser
+first get your raspberry pi running and install the latest raspian: [from here](https://www.raspberrypi.org/downloads/raspbian/)
+
+if your desktop appears and you set all your localization and other options right install Kidesktop
+
+	sudo apt-get install wmctrl xdotool php5 chromium-browser cifs-utils
 	git clone https://github.com/mad5/Kidesktop.git
 	cd Kidesktop
 	
