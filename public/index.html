@@ -90,7 +90,7 @@
 			console.log(res);
 			for(var i=0;i<res.length;i++) {
 				html += "<div style='float:left;padding:20px;text-align:center;cursor:pointer;' onclick=\"openBereich('"+res[i].id+"', '"+res[i].titel+"');\">";
-				html += '<img src="'+CONFIG.imgsrv+res[i].icon+'" width=100><br>';
+				html += '<img src="'+res[i].icon+'" width=100><br>';
 				html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;'>"+res[i].titel+"</span>";
 				html += "</div>";
 			}
