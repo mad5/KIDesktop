@@ -98,10 +98,10 @@
             this.options.minuteArmDimensions,
             this.options.minuteArmColors
         );
-        this.secondArm = this._createArm( 
+        /*this.secondArm = this._createArm( 
             this.options.secondArmDimensions,
             this.options.secondArmColors
-        );
+        );*/
 
         // Create the dot in the middle
         this.paper.circle(
@@ -169,9 +169,9 @@
             // Fix orientation of the different arms, if they are crossing the
             // zero border. This is needed because Raphael does calculate an
             // animation into the wrong direction otherwise.
-            if ( secondRotation == 6 ) {
+            /*if ( secondRotation == 6 ) {
                 this.secondArm.rotate( 0.000001, this.midX, this.midY );
-            }
+            }*/
             if ( secondRotation == 0 && minuteRotation == 6 ) {
                 this.minuteArm.rotate( 0.000001, this.midX, this.midY );
             }
@@ -179,11 +179,11 @@
                 this.hourArm.rotate( 0.000001, this.midX, this.midY );
             }
 
-            this.secondArm.animate({
+            /*this.secondArm.animate({
                 rotation: [ secondRotation == 0 ? 360 : secondRotation, this.midX, this.midY ].join( " " )
-            }, durationSecond, easing );
+            }, durationSecond, easing );*/
             
-            this.minuteArm.animateWith( this.secondArm, {
+            this.minuteArm.animate(  {
                 rotation: [ minuteRotation == 0 ? 360 : minuteRotation, this.midX, this.midY ].join( " " )
             }, durationMinute, easing );
 
@@ -219,6 +219,7 @@
             // - Rotate the minuteArm one full circle for each round, while
             //   correcttly moving the hourArm along.
             // - _updateTime
+            /*
             this.secondArm.animate({
                 rotation: ["0", this.midX, this.midY].join( " " )
             }, (this.currentSecond) * 15, jQuery.proxy( function() {
@@ -227,6 +228,7 @@
                     this._registerInterval( 1000 );
                 }, this ) );
             }, this ));
+            */
         },
         
         /**
@@ -272,7 +274,7 @@
 
                 this.interval = window.setInterval( jQuery.proxy( function() {
                     this._updateTime();
-                }, this ), 1000 );
+                }, this ), 60000 );
             }, this ), delay );
         }
     }
