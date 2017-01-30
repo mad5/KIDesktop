@@ -18,8 +18,10 @@ then
 
 	# kill desktop-manager
 	sudo killall pcmanfm
+
+	# stop apache if running
+	nohup sudo /etc/init.d/apache2 stop 2>/dev/null
 fi
-nohup sudo /etc/init.d/apache2 stop 2>/dev/null
 
 nohup php tools/samba.php 2>/dev/null
 

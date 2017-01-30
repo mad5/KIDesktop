@@ -44,6 +44,9 @@
 <script src="./socket.io-client/socket.io.js"></script>
 <script src="./main.js?x=3"></script>
 <script src="./config.js?x=1"></script>
+
+<script src="./resources/raphael-min.js"></script>
+<script src="./resources/clock.js"></script>
   
 </head>
 <body>
@@ -66,6 +69,7 @@
 		<div style="width:66%;float:left" id="level2">
 			<div style="padding: 20px;box-sizing:border-box;">
 			
+				<div style="float:right;" id="clock"></div>
 				
 			</div>
 		</div>
@@ -78,8 +82,17 @@
 
   
 <script>
+	$(function() {
+			var clock = new Clock( "#clock", {"background": "resources/clock-background.png"} );
+			$( ".timeshift" ).click(function( e ) {
+				clock.moveBack( 1 );
+				e.preventDefault();
+				return false;
+			});
+	});
   
   $(function() {
+  		  
 	$.ajax({
 		"url": CONFIG.apiserver,
 		"type": "post",
