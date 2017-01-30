@@ -84,11 +84,6 @@
 <script>
 	$(function() {
 			var clock = new Clock( "#clock", {"background": "resources/clock-background.png"} );
-			$( ".timeshift" ).click(function( e ) {
-				clock.moveBack( 1 );
-				e.preventDefault();
-				return false;
-			});
 	});
   
   $(function() {
