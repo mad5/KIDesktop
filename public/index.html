@@ -49,7 +49,11 @@
 <script type="text/javascript" src="./resources/ventus.js"></script>
 <script src="./socket.io-client/socket.io.js"></script>
 <script src="./main.js?x=3"></script>
-<script src="./config.js?x=1"></script>
+
+<script>
+document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/script>');
+</script>
+
 
 <script src="./resources/raphael-min.js"></script>
 <script src="./resources/clock.js?x=1"></script>
