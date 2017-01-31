@@ -71,8 +71,13 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 		<div style="width:66%;float:left" id="level2">
 			<div style="padding: 20px;box-sizing:border-box;">
 			
+			
 				<div style="float:right;" id="clock"></div>
-				
+
+				<div style="float:right;">
+					<a href="#" onclick="openMail();return false;" style='text-decoration:none;'><span style='text-align:middle;font-size: 4em;color:white;' id='emailcount'></span><img id="emailsign" src='resources/graphics-at-sign-336825.png' border=0></a>
+				</div>
+
 			</div>
 		</div>
 		
@@ -89,6 +94,43 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 			var clock = new Clock( "#clock", {"background": "resources/clock-background.png"} );
 	});
 
+	var checkMailCounterMax = 60*5;
+	var checkMailCounter = 2;
+	function openMail() {
+		window.open(CONFIG.apiserver+"?action=openmail&key="+CONFIG.key, 'mailkontakte', "width=500,height=400,resizable=yes,scrollbars=yes");
+		checkMailCounterMax = 10;
+		checkMailCounter = checkMailCounterMax;
+	}
+	
+	setInterval(function() {
+			
+			checkMailCounter--;
+			if(checkMailCounter>0) return;
+			checkMailCounter=checkMailCounterMax;
+			
+			if(checkMailCounterMax<60*10) {
+				checkMailCounterMax+=10;
+			}
+			
+			
+			$.ajax({
+					"url": CONFIG.apiserver,
+					"type": "post",
+					"dataType": "json",
+					"data": {"action": "ungelesennachrichten", "key": CONFIG.key},
+					"success": function(res) {
+						if(res.ungelesen>0) {
+							$('#emailsign').attr("src", "resources/graphics-at-sign-336825.gif");
+							$('#emailcount').html(res.ungelesen);
+						} else {
+							$('#emailsign').attr("src", "resources/graphics-at-sign-336825.png");
+							$('#emailcount').html("");
+						}
+					}
+			});
+			
+	}, 1000);
+	
 	
   $(function() {
   		  
