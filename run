@@ -1,5 +1,7 @@
 #!/bin/bash
 
+timestamp=$(date +%s)
+
 # set local directory to Kidesktop-folder
 cd "$(dirname "$0")"
 
@@ -38,7 +40,7 @@ nohup chromium-browser \
 --disable-notifications \
 --disable-prompt-on-repost \
 --disable-popup-blocking \
---app=http://localhost:2022/?$1 2>/dev/null
+--app=http://localhost:2022/?$1&$timestamp 2>/dev/null
 
 # stop websocket-server
 nohup php server.php stop 2>/dev/null

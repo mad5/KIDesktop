@@ -17,7 +17,10 @@ $(function() {
 				
   });
   var href = window.location.href+"";
-  var cmd = href.substr(href.indexOf("?")+1); 
+  var cmd = href.substr(href.indexOf("?")+1);
+  if(cmd.indexOf("&")!=-1) {
+  	  cmd = href.substr(0,href.indexOf("&"));
+  }
   
   socket.emit('action', {"action": "initrun", "cmd": cmd} );
   
