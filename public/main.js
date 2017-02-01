@@ -1,5 +1,6 @@
 var socket;
 var deviceID = "123";
+var cmd = "";
 $(function() { 
 		
   socket = io('http://'+document.domain+':2020');
@@ -17,9 +18,9 @@ $(function() {
 				
   });
   var href = window.location.href+"";
-  var cmd = href.substr(href.indexOf("?")+1);
+  cmd = href.substr(href.indexOf("?")+1);
   if(cmd.indexOf("&")!=-1) {
-  	  cmd = href.substr(0,href.indexOf("&"));
+  	  cmd = cmd.substr(0,cmd.indexOf("&"));
   }
   
   socket.emit('action', {"action": "initrun", "cmd": cmd} );

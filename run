@@ -25,6 +25,7 @@ then
 	nohup sudo /etc/init.d/apache2 stop 2>/dev/null
 fi
 
+# init samba shares if defined
 nohup php tools/samba.php 2>/dev/null
 
 # start websocket-server as daemon
@@ -40,7 +41,7 @@ nohup chromium-browser \
 --disable-notifications \
 --disable-prompt-on-repost \
 --disable-popup-blocking \
---app=http://localhost:2022/?$1&$timestamp 2>/dev/null
+--app=http://localhost:2022/?$1\&$timestamp 2>/dev/null
 
 # stop websocket-server
 nohup php server.php stop 2>/dev/null
