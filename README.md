@@ -6,19 +6,22 @@ A pi-driven Kids-Desktop for safe internet- and application-usage
 
 first get your raspberry pi running and install the latest raspian: [from here](https://www.raspberrypi.org/downloads/raspbian/)
 
-if your desktop appears and you set all your localization and other options right install Kidesktop
+__prerequisites__
 
 	sudo apt-get install wmctrl xdotool php5 chromium-browser cifs-utils
+
+if your desktop appears and you set all your localization and other options right install Kidesktop
+
 	git clone https://github.com/mad5/Kidesktop.git
 	cd Kidesktop
 	
 # run for testing
 
-	./run
+	./run test #not set to background and titlebar not hidden
 	
 or
 	
-	./run test	#not set to background and titlebar not hidden
+	./run # as desktop
 	
 # run at boottime
 
@@ -27,7 +30,7 @@ Set hostname to your __Kideskadm__-installation.
 Set your devicekey. This is generated within __Kideskadm__.  
 Add allowed hosts. The host where your __Kideskadm__ is installed must set in here.  
 
-edit ~/.config/,xsession/LXDE.pi/autostart and add at the end
+edit ~/.config/lxsession/LXDE.pi/autostart and add at the end
 
 	@/home/pi/Kidesktop/run full
 
