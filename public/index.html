@@ -74,9 +74,6 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 			
 				<div style="float:right;" id="clock"></div>
 
-				<div style="float:right;">
-					<a href="#" onclick="openMail();return false;" style='text-decoration:none;'><span style='text-align:middle;font-size: 4em;color:white;' id='emailcount'></span><img id="emailsign" src='resources/graphics-at-sign-336825.png' border=0></a>
-				</div>
 
 			</div>
 		</div>
@@ -85,7 +82,14 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 	</div>
 	
 	
-<div style="display:none;position:absolute;right:30px;bottom:30px;width:500px;height:400px;overflow:autoflow:auto;background-color:white;" id="dbg"></div>
+<div style="display:none;position:absolute;right:30px;bottom:30px;width:500px;height:400px;overflow:autoflow:auto;background-color:white;" id="dbgx"></div>
+
+				<div style="position:absolute;right:30px;bottom:30px;display:none;" id="mailboxsymbol">
+					<a href="#" onclick="openMail();return false;" style='text-decoration:none;'>
+						<span style='text-align:middle;font-size: 4em;color:white;' id='emailcount'></span>
+						<img id="emailsign" src='resources/email.png' width=265 border=0>
+					</a>
+				</div>
 
   
 <script>
@@ -104,33 +108,55 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 	
 	setInterval(function() {
 			
-			checkMailCounter--;
-			if(checkMailCounter>0) return;
-			checkMailCounter=checkMailCounterMax;
-			
-			if(checkMailCounterMax<60*10) {
-				checkMailCounterMax+=10;
+		if(features.mailbox==false) return;
+
+		if(newMails) {
+			newMailsToggle = 1-newMailsToggle;
+			if(newMailsToggle==0) {
+				$('#emailsign').attr("src", "resources/email_invert.png");
+			} else {
+				$('#emailsign').attr("src", "resources/email.png");
 			}
-			
-			
-			$.ajax({
-					"url": CONFIG.apiserver,
-					"type": "post",
-					"dataType": "json",
-					"data": {"action": "ungelesennachrichten", "key": CONFIG.key},
-					"success": function(res) {
-						if(res.ungelesen>0) {
-							$('#emailsign').attr("src", "resources/graphics-at-sign-336825.gif");
-							$('#emailcount').html(res.ungelesen);
-						} else {
-							$('#emailsign').attr("src", "resources/graphics-at-sign-336825.png");
-							$('#emailcount').html("");
-						}
+		}
+		
+		checkMailCounter--;
+		if(checkMailCounter>0) return;
+		checkMailCounter=checkMailCounterMax;
+		
+		if(checkMailCounterMax<60*10) {
+			checkMailCounterMax+=10;
+		}
+		
+		
+		$.ajax({
+				"url": CONFIG.apiserver,
+				"type": "post",
+				"dataType": "json",
+				"data": {"action": "ungelesennachrichten", "key": CONFIG.key},
+				"success": function(res) {
+					if(res.ungelesen>0) {
+						$('#emailsign').attr("src", "resources/email_invert.png");
+						$('#emailcount').html(res.ungelesen);
+						$('#mailboxsymbol').show();
+						newMails = true;
+					} else {
+						$('#emailsign').attr("src", "resources/email.png");
+						$('#emailcount').html("");
+						$('#mailboxsymbol').show();
+						newMails = false;
 					}
-			});
+				}
+		});
 			
 	}, 1000);
 	
+var newMails = false;
+var newMailsToggle=0;
+
+
+var features = {
+	"mailbox": false
+};
 	
   $(function() {
   		  
@@ -142,10 +168,13 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 		"success": function(res) {
 			var html = "";
 			console.log(res);
-			for(var i=0;i<res.length;i++) {
-				html += "<div style='float:left;padding:20px;text-align:center;cursor:pointer;' onclick=\"openBereich('"+res[i].id+"', '"+res[i].titel+"');\">";
-				html += '<img src="'+res[i].icon+'" height=100><br>';
-				html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;'>"+res[i].titel+"</span>";
+			
+			features = res.features;
+			var bereiche = res.bereiche;
+			for(var i=0;i<bereiche.length;i++) {
+				html += "<div style='float:left;padding:20px;text-align:center;cursor:pointer;' onclick=\"openBereich('"+bereiche[i].id+"', '"+bereiche[i].titel+"');\">";
+				html += '<img src="'+bereiche[i].icon+'" height=100><br>';
+				html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;'>"+bereiche[i].titel+"</span>";
 				html += "</div>";
 			}
 			
