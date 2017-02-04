@@ -29,16 +29,20 @@ foreach($hosts as $host) {
 $hosts = json_decode(file_get_contents($config["kideskadmsrv"]."?action=gethosts&key=".$config["key"]),true);
 foreach($hosts as $host) {
 	$ip = getHostByName($host);
-	$c .= $ip."\t".$host."\n";	
+	if($ip!=$host) {
+	    $c .= $ip."\t".$host."\n";
+	}
 	$ip = getHostByName("www.".$host);
-	if($ip!="") $c .= $ip."\twww.".$host."\n";
+	if($ip!=$host) {
+	    if($ip!="") $c .= $ip."\twww.".$host."\n";
+	}
 }
 
 file_put_contents("/etc/hosts", $c);
 
-unlink("/etc/resolv.conf");
-sleep(5);
-unlink("/etc/resolv.conf");
+#unlink("/etc/resolv.conf");
+#sleep(5);
+#unlink("/etc/resolv.conf");
 
 
 ?>
