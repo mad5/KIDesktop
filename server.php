@@ -7,7 +7,7 @@ use PHPSocketIO\SocketIO;
 $config = json_decode(file_get_contents("config.json"), true);
 $js = 'var CONFIG = {';
 $js .= '    "apiserver": "'.$config["kideskadmsrv"].'", ';
-$js .= '    "mainkey": "'.$config["mainkey"].'" ';
+$js .= '    "mainkey": "'.$config["mainkey"].'", ';
 $js .= '    "key": "'.$config["key"].'" ';
 $js .= '};';
 file_put_contents(dirname(__FILE__).'/public/config.js', $js);
