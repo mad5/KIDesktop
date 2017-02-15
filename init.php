@@ -3,7 +3,7 @@
 if(!file_exists("/etc/resolv.conf.orig")) {
 	copy("/etc/resolv.conf", "/etc/resolv.conf.orig");
 }
-copy("/etc/resolv.conf.orig", "/etc/resolv.conf");
+#copy("/etc/resolv.conf.orig", "/etc/resolv.conf");
 
 chdir(dirname(__FILE__));
 if(!file_exists("config.json")) die("no config.js found.");
@@ -38,7 +38,7 @@ foreach($hosts as $host) {
 	}
 }
 
-file_put_contents("/etc/hosts", $c);
+#file_put_contents("/etc/hosts", $c);
 
 #unlink("/etc/resolv.conf");
 #sleep(5);

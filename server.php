@@ -4,6 +4,14 @@ use Workerman\WebServer;
 use Workerman\Autoloader;
 use PHPSocketIO\SocketIO;
 
+$config = json_decode(file_get_contents("config.json"), true);
+$js = 'var CONFIG = {';
+$js .= '    "apiserver": "'.$config["kideskadmsrv"].'", ';
+$js .= '    "mainkey": "'.$config["mainkey"].'" ';
+$js .= '    "key": "'.$config["key"].'" ';
+$js .= '};';
+file_put_contents(dirname(__FILE__).'/public/config.js', $js);
+
 // composer autoload
 include __DIR__ . '/socketio/vendor/autoload.php';
 include __DIR__ . '/socketio/src/autoload.php';
@@ -30,12 +38,10 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	if($data["action"]=="openurl") {
     		$url = $data["url"];
     		$E = "chromium-browser ".implode(" ", $disable)." --app=".escapeshellarg($url);
-		//echo $E."\n";
     		exec($E." > /dev/null &");
     	}
     	
     	if($data["action"]=="runcommand") {
-    		#exec($data["app"]." > /dev/null &");
 		$a = exec($data["app"]." > /dev/null &", $b);
 		$socket->emit('action', array("action"=>"dbg", "info" => $E."<br>".print_r($a,1)."<br>".print_r($b,1)));
     	}
@@ -43,12 +49,10 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	if($data["action"]=="runapp") {
     		$appname = $data["app"];
     		$E = "chromium-browser ".implode(" ", $disable)." --app=http://localhost:2022/apps/".$appname."/index.php";
-		//echo $E."\n";
     		$a = exec($E." > /dev/null &", $b);
 		$socket->emit('action', array("action"=>"dbg", "info" => $E."<br>".print_r($a,1)."<br>".print_r($b,1)));
     	}
     	$socket->emit('action', array("action"=>"dbg", "info" => print_r($data,1)));
-    	#$socket->emit('action', $data);
     });
    
 });

@@ -1,7 +1,8 @@
 {
-"kideskadmsrv": "HOST2KIDESKADM-SERVER",
+"kideskadmsrv": "https://kidesktop.mad5.de/api.php",
+"mainkey": "MainKey",
 "key": "DeviceKey",
 "hosts": [
-    "allowedhostname.com"
+    "kidesktop.mad5.de"
 ]
 }

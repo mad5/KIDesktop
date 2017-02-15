@@ -5,7 +5,7 @@ timestamp=$(date +%s)
 # set local directory to Kidesktop-folder
 cd "$(dirname "$0")"
 
-nohup git pull 2>/dev/null
+#nohup git pull 2>/dev/null
 
 if [ "$1" = "full" ]
 then
