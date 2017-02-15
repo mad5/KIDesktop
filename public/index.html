@@ -101,7 +101,7 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 	var checkMailCounterMax = 60*5;
 	var checkMailCounter = 2;
 	function openMail() {
-		window.open(CONFIG.apiserver+"?action=openmail&key="+CONFIG.key, 'mailkontakte', "width=500,height=400,resizable=yes,scrollbars=yes");
+		window.open(CONFIG.apiserver+"?action=openmail&mainkey="+CONFIG.mainkey+"&key="+CONFIG.key, 'mailkontakte', "width=500,height=400,resizable=yes,scrollbars=yes");
 		checkMailCounterMax = 10;
 		checkMailCounter = checkMailCounterMax;
 	}
@@ -164,7 +164,7 @@ var features = {
 		"url": CONFIG.apiserver,
 		"type": "post",
 		"dataType": "json",
-		"data": {"action": "listbereiche", "key": CONFIG.key},
+		"data": {"action": "listbereiche", "key": CONFIG.key, "mainkey": CONFIG.mainkey},
 		"success": function(res) {
 			var html = "";
 			console.log(res);
@@ -215,7 +215,7 @@ var features = {
 		"url":CONFIG.apiserver,
 		"type":"post",
 		"dataType": "json",
-		"data": {"action":"listeintraege", "key": CONFIG.key,"bereich":id},
+		"data": {"action":"listeintraege", "key": CONFIG.key,"mainkey": CONFIG.mainkey, "bereich":id},
 		"success": function(data) {
 			console.log(data);
 			var html = "";

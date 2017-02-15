@@ -26,7 +26,7 @@ foreach($hosts as $host) {
 	#echo $ip."\n";
 }
 
-$hosts = json_decode(file_get_contents($config["kideskadmsrv"]."?action=gethosts&key=".$config["key"]),true);
+$hosts = json_decode(file_get_contents($config["kideskadmsrv"]."?action=gethosts&mainkey=".$config["mainkey"]."&key=".$config["key"]),true);
 foreach($hosts as $host) {
 	$ip = getHostByName($host);
 	if($ip!=$host) {
