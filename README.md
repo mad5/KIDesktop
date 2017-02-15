@@ -62,6 +62,6 @@ __jquery__
 jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers.  
 [https://jquery.com/](https://jquery.com/)
 
-_html5clock__  
+__html5clock__  
 ineedmoretime.org - A HTML5 analog clock experiment
 [https://github.com/jakobwesthoff/ineedmoretime](https://github.com/jakobwesthoff/ineedmoretime)

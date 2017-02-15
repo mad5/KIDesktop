@@ -31,17 +31,33 @@ nohup php tools/samba.php 2>/dev/null
 # start websocket-server as daemon
 nohup php server.php start -d 2>/dev/null
 
+if hash wmctrl 2>/dev/null; then
+	echo ""
+else
+	echo "wmctrl not found";
+fi
+
+if hash xdotool 2>/dev/null; then
+	echo ""
+else
+	echo "xdotool not found";
+fi
+
 # start chromium-browser and point to websocket-server
-nohup chromium-browser \
---disable-translate \
---disable-autofill-keyboard-accessory-view \
---disable-default-apps \
---disable-extensions \
---disable-infobars \
---disable-notifications \
---disable-prompt-on-repost \
---disable-popup-blocking \
---app=http://localhost:2022/?$1\&$timestamp 2>/dev/null
+if hash chromium-browser 2>/dev/null; then
+	nohup chromium-browser \
+	--disable-translate \
+	--disable-autofill-keyboard-accessory-view \
+	--disable-default-apps \
+	--disable-extensions \
+	--disable-infobars \
+	--disable-notifications \
+	--disable-prompt-on-repost \
+	--disable-popup-blocking \
+	--app=http://localhost:2022/?$1\&$timestamp 2>/dev/null
+else
+	echo "chromium-browser not installed"
+fi
 
 # stop websocket-server
 nohup php server.php stop 2>/dev/null
