@@ -12,7 +12,7 @@ __prerequisites__
 ##Adminstrative account 
 
 create an account at https://kidesktop.mad5.de  
-go to yout settings and write down your mainkey.  
+go to your settings and write down your mainkey.  
 insert at least one system and write down the systemkey.  
 
 
@@ -28,7 +28,7 @@ if your desktop appears and you set all your localization and other options righ
 	cd Kidesktop
 
 rename config.json.dist to config.json and edit.  
-set mainkey- and key-values which you wrote before.  
+set mainkey- and key-values which you wrote down before.  
 Add allowed hosts. The host where your __Kidesktop-adminstation__ is installed must set in here.  
 	
 # run for testing
