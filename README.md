@@ -1,6 +1,7 @@
 # Kidesktop
 A pi-driven Kids-Desktop for safe internet- and application-usage
 
+![example installation](https://kidesktop.mad5.de/resources/images/kidesktop.jpg)
 
 # install
 
