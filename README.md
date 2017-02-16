@@ -5,7 +5,7 @@ A pi-driven Kids-Desktop for safe internet- and application-usage
 
 # install
 
-first get your raspberry pi running and install the latest raspian: [from here](https://www.raspberrypi.org/downloads/raspbian/)
+first get your [raspberry pi](https://www.raspberrypi.org/) running and install the latest raspian: [from here](https://www.raspberrypi.org/downloads/raspbian/)
 
 __prerequisites__
 
