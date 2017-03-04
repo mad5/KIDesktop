@@ -5,6 +5,14 @@ timestamp=$(date +%s)
 # set local directory to Kidesktop-folder
 cd "$(dirname "$0")"
 
+if [ -f "config.json" ]; then
+    echo ""
+else
+    echo "config.json does not exists!"
+    echo "Please rename config.json.dist and edit."
+    exit 0
+fi
+
 #nohup git pull 2>/dev/null
 
 if [ "$1" = "full" ]
@@ -25,11 +33,17 @@ then
 	nohup sudo /etc/init.d/apache2 stop 2>/dev/null
 fi
 
-# init samba shares if defined
-nohup php tools/samba.php 2>/dev/null
+if hash php 2>/dev/null; then
+    # init samba shares if defined
+    nohup php tools/samba.php 2>/dev/null
 
-# start websocket-server as daemon
-nohup php server.php start -d 2>/dev/null
+    # start websocket-server as daemon
+    nohup php server.php start -d 2>/dev/null
+    sleep 1
+else
+    echo "php not installed"
+    exit 0
+fi
 
 if hash wmctrl 2>/dev/null; then
 	echo ""
@@ -45,22 +59,38 @@ fi
 
 # start chromium-browser and point to websocket-server
 if hash chromium-browser 2>/dev/null; then
+
+    if [ -d ".browserdata" ]; then
+        echo ""
+    else
+       mkdir .browserdata
+    fi
+
 	nohup chromium-browser \
 	--disable-translate \
 	--disable-autofill-keyboard-accessory-view \
 	--disable-default-apps \
+	--no-first-run \
 	--disable-extensions \
 	--disable-infobars \
+	--noerrdialogs \
+	--user-data-dir=.browserdata \
 	--disable-notifications \
 	--disable-prompt-on-repost \
 	--disable-popup-blocking \
 	--app=http://localhost:2022/?$1\&$timestamp 2>/dev/null
 else
 	echo "chromium-browser not installed"
+	exit 0
 fi
+echo "chromium stopped"
 
 # stop websocket-server
-nohup php server.php stop 2>/dev/null
+if hash php 2>/dev/null; then
+    nohup php server.php stop 2>/dev/null
+else
+    echo "php not installed"
+fi
 
 if [ "$1" = "full" ]
 then
