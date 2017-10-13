@@ -9,17 +9,17 @@ first get your [raspberry pi](https://www.raspberrypi.org/) running and install 
 
 __prerequisites__
 
-##Adminstrative account 
+## Adminstrative account 
 
 create an account at https://kidesktop.mad5.de  
 go to your settings and write down your mainkey.  
 insert at least one system and write down the systemkey.  
 
 
-##install your pi
+## install your pi
 
 	sudo apt-get update
-	sudo apt-get install wmctrl xdotool php5 chromium-browser
+	sudo apt-get install git wmctrl xdotool php chromium-browser
 
 if your desktop appears and you set all your localization and other options right install Kidesktop
 

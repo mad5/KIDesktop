@@ -71,6 +71,7 @@ if hash chromium-browser 2>/dev/null; then
 	--disable-autofill-keyboard-accessory-view \
 	--disable-default-apps \
 	--no-first-run \
+	--ignore-certificate-errors \
 	--disable-extensions \
 	--disable-infobars \
 	--noerrdialogs \
