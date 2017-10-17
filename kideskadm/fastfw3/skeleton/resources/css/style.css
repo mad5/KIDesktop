@@ -1,0 +1,17 @@
+body {
+	background-color: white;
+	color: black;
+	margin-top: 60px;
+}
+
+#searchclear {
+	bottom: 0;
+	color: #555;
+	cursor: pointer;
+	font-size: 14px;
+	height: 14px;
+	margin: auto;
+	position: absolute;
+	right: 5px;
+	top: 0;
+}

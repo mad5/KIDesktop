@@ -1,0 +1,16 @@
+<?php
+class fastfw_##MODULNAME## extends fastfw_modul {
+
+	public $##MODULNAME##;
+
+	public function __construct($fw) {
+		// {{{
+		$this->fw = $fw;
+		#$this->fw->fw_useClass('fe_user'); // , array('requirelogin' => true) // , array('checklogin' => true)
+		// }}}
+	}
+
+##METHOD##
+
+}
+?>

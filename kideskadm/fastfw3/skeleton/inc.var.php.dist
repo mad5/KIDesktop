@@ -1,0 +1,27 @@
+<?php
+define('DB_TYPE', 'mysqli');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'USERNAME');
+define('DB_PASS', 'PASSWORD');
+define('DB_NAME', 'DATABASE');
+define('DB_CHARACTERSET', 'utf8');
+
+/*
+define('DB_TYPE', 'sqlite');
+define('DB_FILE', dirname(__FILE__).'/sqlitedb/sqlite.db');
+*/
+
+define('USER_SECRET', '6a647a2123276bd29065aaa575744e7c'); // Change this MD5-Salt for every project!
+
+define('FILE_UPLOAD_FOLDER', dirname(__FILE__).'/uploads');
+
+//define("rewriteLinks", true);
+// to use rewriteLinks you need this rewrite-rules:
+/*
+  RewriteEngine On
+  rewriteCond %{REQUEST_URI} !resources/
+  RewriteRule ^(.*)$ index.php?fw_goto=$1 [QSA,L]
+*/
+// Then also set base-tag to docroot
+//define("baseHref", "http://localhost/test/fw/");
+?>

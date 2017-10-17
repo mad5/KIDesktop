@@ -10,3 +10,9 @@
 /public/config.js
 /.browserdata
 /.idea
+/kideskadm/.idea
+/kideskadm/cache
+/kideskadm/log
+/kideskadm/sqlitedb
+*~
+/kideskadm/uploads

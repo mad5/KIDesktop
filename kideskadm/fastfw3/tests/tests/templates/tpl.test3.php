@@ -1,0 +1,1 @@
+ABC<?php echo $X;?>XYZ

@@ -1,0 +1,1 @@
+<p><?= $VARS->get('CONTENT');?></p>

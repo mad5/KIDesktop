@@ -1,0 +1,13 @@
+
+
+	/**
+	* ##METHOD##
+	*/
+	public function view_##METHOD##($QS) {
+		// {{{
+		$tpl = $this->newTpl();
+		$tpl->setVariable('CONTENT', date('H:i:s'));
+
+		$this->fw->setContentBody('CONTENT', $tpl->get('tpl.##METHOD##.php'));
+		// }}}
+	}

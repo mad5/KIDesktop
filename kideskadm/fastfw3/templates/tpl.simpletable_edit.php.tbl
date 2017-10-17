@@ -1,0 +1,96 @@
+<table summary="tabelle"><tr>
+<td>
+	<a href="<?= getLink($VARS->get('defaultLink'));?>">&laquo; zur&uuml;ck</a>
+</td>
+</tr></table>
+
+<hr size=1 />
+
+<form method="post" action="<?= getLink($VARS->get('defaultLink'));?>" enctype="multipart/form-data">
+<?php if($VARS->get('data')->get($VARS->get('primaryKey'))=='') { ?><input type="hidden" name="createEntry" value="1" />
+<?php } else { ?><input type="hidden" name="updateEntry" value="<?= $VARS->get('data')->get($VARS->get('primaryKey'));?>" /><?php } ?>
+<table summary="tabelle">
+<?php for($i=0;$i<$VARS->get('fieldlist')->count();$i++) { ?>
+	<?php if($VARS->get('fieldlist')->get($i)->get('type')!='hidden') { ?>
+		<tr>
+		<td <?= ($VARS->get('fieldlist')->get($i)->get('longcaption') ? 'colspan="2"' : '');?>><?= $VARS->get('fieldlist')->get($i)->get('caption');?></td>
+		<?= ($VARS->get('fieldlist')->get($i)->get('longcaption') ? '</tr><tr><td></td>' : '');?>
+		<td>
+			<?php if($VARS->get('fieldlist')->get($i)->get('type')=='checkbox') { ?>
+				<?php for($j=0;$j<$VARS->get('fieldlist')->get($i)->get('values')->count();$j++) { ?>
+					<input type=checkbox name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>][]" value='<?= $VARS->get('fieldlist')->get($i)->get('values')->get($j);?>' <?= (stristr('|'.$VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field')).'|','|'.$VARS->get('fieldlist')->get($i)->get('values')->get($j).'|') ? 'checked' : ''); ?> /><?= $VARS->get('fieldlist')->get($i)->get('texts')->get($j);?><br>
+				<?php } ?>
+			<?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='radio') { ?>
+				<?php for($j=0;$j<$VARS->get('fieldlist')->get($i)->get('values')->count();$j++) { ?>
+					<input type=radio name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>]" value='<?= $VARS->get('fieldlist')->get($i)->get('values')->get($j);?>' <?= (stristr('|'.$VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field')).'|','|'.$VARS->get('fieldlist')->get($i)->get('values')->get($j).'|') ? 'checked' : ''); ?> /><?= $VARS->get('fieldlist')->get($i)->get('texts')->get($j);?><br>
+				<?php } ?>
+			<?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='select') { ?>
+				<select name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>]">
+					<?php if(!$VARS->get('fieldlist')->get($i)->is_set('hideempty') || $VARS->get('fieldlist')->get($i)->getInt('hideempty')!=1) { ?><option value=''>&nbsp;</option><?php } ?>
+					<?php for($j=0;$j<$VARS->get('fieldlist')->get($i)->get('values')->count();$j++) { ?>
+						<option value='<?= $VARS->get('fieldlist')->get($i)->get('values')->get($j);?>' <?= ($VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field'))==$VARS->get('fieldlist')->get($i)->get('values')->get($j) ? ' selected="selected" ' : ''); ?> ><?= $VARS->get('fieldlist')->get($i)->get('texts')->get($j);?></option>
+					<?php } ?>
+				</select>
+			<?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='html') { ?>
+				<?= $this->tplParse($VARS->get('fieldlist')->get($i)->get('html')->get('edit'));?>
+			<?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='multiselect') {  ?>
+				<select name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>][]" multiple="multiple" class="multiselect">
+					<?php for($j=0;$j<$VARS->get('fieldlist')->get($i)->get('values')->count();$j++) { ?>
+						<option value='<?= $VARS->get('fieldlist')->get($i)->get('values')->get($j);?>' <?= (stristr('|'.$VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field')).'|','|'.$VARS->get('fieldlist')->get($i)->get('values')->get($j).'|') ? ' selected="selected" ' : ''); ?> ><?= $VARS->get('fieldlist')->get($i)->get('texts')->get($j);?></option>
+					<?php } ?>
+				</select>
+                        <?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='date') { ?>
+                                <input type="text" name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>]" class="<?= $VARS->get('fieldlist')->get($i)->get('class'); ?>"  id="input_<?= $VARS->get('fieldlist')->get($i)->get('field');?>" value="<?= formatDate($VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field')));?>" />
+                                
+                                <?php if($VARS->get('fieldlist')->get($i)->is_set('nextdays') && $VARS->get('fieldlist')->get($i)->get('nextdays')==1 && $VARS->get('data')->get($VARS->get('primaryKey'))=="") { ?><br/>
+                                <nobr>
+                                    <a href='#' onclick="$('#input_<?= $VARS->get('fieldlist')->get($i)->get('field');?>').val('<?= date("d.m.Y")?>');return false;">[heute]</a>
+                                    <a href='#' onclick="$('#input_<?= $VARS->get('fieldlist')->get($i)->get('field');?>').val('<?= date("d.m.Y", time()+60*60*24)?>');return false;">[morgen]</a>
+                                    , nächsten 
+                                    <?php $wd = 1-date("w");/*echo date("w")."<br>";echo $wd."<br>"; echo date("d.m.Y", time()+60*60*24*($wd+7));*/?>
+                                    <?php for($iw=0;$iw<7;$iw++) { ?>
+                                        <a href='#' onclick="$('#input_<?= $VARS->get('fieldlist')->get($i)->get('field');?>').val('<?= date("d.m.Y", time()+60*60*24*($wd+7+$iw))?>');return false;">[<?= formatWochentag($iw+1); ?>]</a>
+                                    <?php } ?>
+                                </nobr>
+                                <?php } ?>
+                        		
+				
+			<?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='textarea') { ?>
+				<textarea name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>]" rows=5 cols=50 ><?= $VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field'));?></textarea>
+			<?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='file') { ?>
+				<?php if($VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field'))!='') { ?>Datei: <?= $VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field'));?><br><?php } ?>
+				<input type="file" name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>]" />
+			<?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='image') { ?>
+				<?php if($VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field'))!='') { ?>Datei: <?= $VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field'));?><br><?php } ?>
+				<input type="file" name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>]" />
+			<?php } else if($VARS->get('fieldlist')->get($i)->get('type')=='password') { ?>
+				<input type="password" name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>]" value="" />
+			<?php } else { ?>
+				<input type="<?= ($VARS->get('fieldlist')->get($i)->get('texttype')=='password' ? 'password' : 'text'); ?>" name="FORM[<?= $VARS->get('fieldlist')->get($i)->get('field');?>]" value="<?= $VARS->get('data')->get($VARS->get('fieldlist')->get($i)->get('field'));?>" />
+			<?php } ?>
+		</td>
+		</tr>
+	<?php } ?>
+<?php } ?>
+<tr>
+	<td></td>
+	<td><br/>
+	<table width=100% summary="tabelle"><tr>
+		<td><input type="submit" value="<?= $VARS->get('saveButtonCaption');?>" /></td>
+		
+		<td>
+			<!-- <a href="<?= getLink($VARS->get('defaultLink'));?>">&laquo; zur&uuml;ck</a> -->
+			<?php 
+				if($VARS->get('data')->get($VARS->get('primaryKey'),0)>0) { ?>
+				<a href="#" onClick="if(confirm('Sicher?')) {window.location='<?= getLink($VARS->get('defaultLink').'/edit/'.$VARS->get('data')->get($VARS->get('primaryKey')));?>/del';} return(false);">Eintrag l&ouml;schen</a>
+			<?php } ?>
+		</td>
+	</tr></table>
+	
+	</td>
+</tr>
+
+</table>
+</form>
+
+
