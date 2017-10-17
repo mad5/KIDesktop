@@ -1,5 +1,5 @@
 {
-"kideskadmsrv": "https://kidesktop.mad5.de/api.php",
+"kideskadmsrv": "http://localhost:8000/api.php",
 "mainkey": "MainKey",
 "key": "DeviceKey",
 "hosts": [

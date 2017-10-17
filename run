@@ -15,10 +15,24 @@ fi
 
 #nohup git pull 2>/dev/null
 
+if [ "$1" = "first" ]
+then
+	echo "";
+	echo "";
+	echo "";
+	echo "";
+	echo "****************************************"
+	echo "KIDesktop - First installation"
+	echo "****************************************"
+	echo "";
+	
+	exit 0
+fi
+
 if [ "$1" = "full" ]
 then
 	# copy background-image to splash-screen
-	sudo cp -f public/resources/bg.png /usr/share/plymouth/themes/pix/splash.png
+	nohup sudo cp -f public/resources/bg.png /usr/share/plymouth/themes/pix/splash.png
 
 	# remove resolv.conf and set hosts-entries
 	sudo php init.php &
@@ -37,6 +51,8 @@ if hash php 2>/dev/null; then
     # init samba shares if defined
     nohup php tools/samba.php 2>/dev/null
 
+    nohup php -S 0.0.0.0:8000 -t kideskadm/ &
+    
     # start websocket-server as daemon
     nohup php server.php start -d 2>/dev/null
     sleep 1
@@ -89,6 +105,7 @@ echo "chromium stopped"
 # stop websocket-server
 if hash php 2>/dev/null; then
     nohup php server.php stop 2>/dev/null
+    sudo killall php
 else
     echo "php not installed"
 fi

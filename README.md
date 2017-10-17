@@ -19,7 +19,7 @@ insert at least one system and write down the systemkey.
 ## install your pi
 
 	sudo apt-get update
-	sudo apt-get install git wmctrl xdotool php chromium-browser
+	sudo apt-get install git wmctrl xdotool php php-sqlite3 chromium-browser
 
 if your desktop appears and you set all your localization and other options right install Kidesktop
 
@@ -31,6 +31,10 @@ rename config.json.dist to config.json and edit.
 set mainkey- and key-values which you wrote down before.  
 Add allowed hosts. The host where your __Kidesktop-adminstation__ is installed must set in here.  
 	
+# run for first installation
+
+	./run first
+
 # run for testing
 
 	./run test #not set to background and titlebar not hidden
