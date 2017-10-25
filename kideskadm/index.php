@@ -18,6 +18,9 @@ define('tpl_main', 'main/tpl.main.php');
 $FW = new fastfw();
 include libPath.'/inc.init.php';
 $FW->setDevelop(true, ''); // if you have tidy installed and accessable, set second parameter to "tidy"
-echo $FW->run();
+$res = $FW->run();
+if(!isset($nooutput)) {
+	echo $res;
+}
 
 ?>

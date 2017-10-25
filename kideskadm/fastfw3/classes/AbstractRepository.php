@@ -719,7 +719,7 @@ abstract class AbstractRepository {
 			$data[$this->getPrefix()."_deleted"] = (isset($data[$this->getPrefix()."_deleted"]) ? (int)$data[$this->getPrefix()."_deleted"] : 0);
 			$data[$this->getPrefix()."_hidden"] = (isset($data[$this->getPrefix()."_hidden"]) ? (int)$data[$this->getPrefix()."_hidden"] : 0);
 		}
-
+#vd($data);exit;
 		$pk = $this->fw->DC->insert($data, $this->getTable());
 		$this->historize($pk);
 

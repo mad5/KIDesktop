@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?= getLink("Eintrag"); ?>">KIDesktop - Administration</a>
+          <a class="navbar-brand" href="<?= getLink("Eintrag"); ?>">KIDesktop</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -17,7 +17,7 @@
             <li class="<?= ($this->fw->QS[0]=="Bereiche" ? 'active' : '');?>"><a href="<?= getLink("Bereiche");?>">Bereiche</a></li>
             <!-- <li class="<?= ($this->fw->QS[0]=="Kategorien" ? 'active' : '');?>"><a href="<?= getLink("Kategorien");?>">Kategorien</a></li> -->
             <li class="<?= ($this->fw->QS[0]=="Eintrag" ? 'active' : '');?>"><a href="<?= getLink("Eintrag");?>">Einträge</a></li>
-            <?php if(me()->getPk()==1) { ?>
+            <?php if(1==2 && me()->getPk()==1) { ?>
             <li class="<?= ($this->fw->QS[0]=="Mailkontakt" ? 'active' : '');?>"><a href="<?= getLink("Mailkontakt");?>">Mailkontakt</a></li>
             <?php } ?>
           <?php } ?>

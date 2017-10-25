@@ -356,7 +356,7 @@ class DBpdosqlite {
 		// {{{
 
 		$data = $this->matchArrayWithTable($data, $table);
-
+#vd($data);vd($table);exit;
 		$keys = array();
 		$vals = array();
 		$qms = array();

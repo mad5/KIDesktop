@@ -5,13 +5,6 @@ timestamp=$(date +%s)
 # set local directory to Kidesktop-folder
 cd "$(dirname "$0")"
 
-if [ -f "config.json" ]; then
-    echo ""
-else
-    echo "config.json does not exists!"
-    echo "Please rename config.json.dist and edit."
-    exit 0
-fi
 
 #nohup git pull 2>/dev/null
 
@@ -25,8 +18,43 @@ then
 	echo "KIDesktop - First installation"
 	echo "****************************************"
 	echo "";
+
+	php kideskadm/first.php
 	
 	exit 0
+fi
+
+if [ -f "config.json" ]; then
+    echo ""
+else
+    echo "config.json does not exists!"
+    echo "Please run with ./run first"
+    exit 0
+fi
+
+
+if [ "$1" = "admin" ]
+then
+	nohup php -S 0.0.0.0:8000 -t kideskadm/ &
+	
+	nohup chromium-browser \
+	--disable-translate \
+	--disable-autofill-keyboard-accessory-view \
+	--disable-default-apps \
+	--no-first-run \
+	--ignore-certificate-errors \
+	--disable-extensions \
+	--disable-infobars \
+	--noerrdialogs \
+	--user-data-dir=.browserdata \
+	--disable-notifications \
+	--disable-prompt-on-repost \
+	--disable-popup-blocking \
+	--app=http://localhost:8000/ 2>/dev/null
+
+	sudo killall php
+	
+	exit 0 
 fi
 
 if [ "$1" = "full" ]

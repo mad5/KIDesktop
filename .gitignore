@@ -1,6 +1,7 @@
 *~
 /nohup.out
 *.log
+*.bak
 *.pid
 /public/apps/
 /tools/mnt/
