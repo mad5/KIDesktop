@@ -27,14 +27,18 @@ if your desktop appears and you set all your localization and other options righ
 	git clone https://github.com/mad5/Kidesktop.git
 	cd Kidesktop
 
-rename config.json.dist to config.json and edit.  
-set mainkey- and key-values which you wrote down before.  
-Add allowed hosts. The host where your __Kidesktop-adminstation__ is installed must set in here.  
-	
 # run for first installation
 
 	./run first
 
+after this your default user with new generated keys is up and running  
+start adminstration-panel with
+
+	./run admin
+
+Your one computer with some default-contents is setup.
+Add anything you want. If you are done, close the browser.
+	
 # run for testing
 
 	./run test #not set to background and titlebar not hidden
