@@ -43,6 +43,28 @@
   text-shadow: 0 1px 0 #3d768a;
 
   }
+  
+  .up {
+  	  opacity: 0.5;
+  	  cursor:pointer;
+  }
+  .up:hover {
+  	  opacity: 1;
+  }
+  
+  .datum {
+  	  text-align:center;
+  	  border-radius: 10px;
+  	  background-color: rgba(255,255,255,0.5);
+  	  font-size:2em;
+  	  margin:20px;
+  }
+  .adminmenu:hover {
+  	  background-color: #800000;
+  }
+  .adminmenu:hover a {
+  	  color: #fff !important;
+  }
 </style>
   
 <script src="./resources/jquery.min.js"></script>
@@ -76,11 +98,22 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 
 
 			</div>
-		</div>
+			<div style='clear:both;'></div>
+							<div id="datum" class="datum">
+				</div>
+
+			</div>
 		
 	
 	</div>
 	
+	<div style="display:block;position:absolute;right:10px;bottom:10px;overflow:" id="adminbutton">
+		<img src="resources/up.png" width="64" class="up" onclick="$('#adminpanel').slideToggle();return false;">
+	</div>
+	<div style="display:none;background-color:rgba(255,255,255,0.7);border-radius:20px;padding:20px;position:absolute;right:10px;bottom:90px;overflow:" id="adminpanel">
+		<div style='padding:5px;' class="adminmenu"><a href='#' onclick="shutdown();return false;" style='color:black;text-decoration:none;'>Ausschalten</a></div>
+		<div style='padding:5px;' class="adminmenu"><a href='#' onclick="reboot();return false;" style='color:black;text-decoration:none;'>Neu starten</a></div>
+	</div>
 	
 <div style="display:none;position:absolute;right:30px;bottom:30px;width:500px;height:400px;overflow:autoflow:auto;background-color:white;" id="dbgx"></div>
 
@@ -94,13 +127,46 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
   
 <script>
 
+function shutdown() {
+	socket.emit('action', {"action": "shutdown"} );
+	
+}
+function reboot() {
+	socket.emit('action', {"action": "reboot"} );
+	
+}
+
 	$(function() {
 			setTimeout(function() {
 					$('#level1').css("width", $(window).width()-310);
 			}, 1000);
 			$(window).on("resize", function() { $('#level1').css("width", $(window).width()-310); });
 			var clock = new Clock( "#clock", {"background": "resources/clock-background.png"} );
+			
+			updatedatum();
+			                       
 	});
+	
+	function add0(X) {
+		if(X<10) return "0"+X;
+		return X;
+	}
+	function updatedatum() {
+		var d = new Date();
+		var dat = d.getDate()+"."+(d.getMonth()+1)+"."+d.getFullYear();
+		
+		var day = "";
+		var wd = d.getDay();
+		if(wd==0) day = "Sonntag";
+		if(wd==1) day = "Montag";
+		if(wd==2) day = "Dienstag";
+		if(wd==3) day = "Mittwoch";
+		if(wd==4) day = "Donnerstag";
+		if(wd==5) day = "Freitag";
+		if(wd==6) day = "Samstag";
+		
+		$('#datum').html(day+"<br>"+dat);
+	}
 
 	var checkMailCounterMax = 60*5;
 	var checkMailCounter = 2;

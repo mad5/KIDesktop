@@ -27,6 +27,13 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	
     	$disable = array();
     	
+    	if($data["action"]=="shutdown") {
+    		exec("sudo halt");
+    	}
+    	if($data["action"]=="reboot") {
+    		exec("sudo reboot");
+    	}
+    	
     	if($data["action"]=="initrun") {
     		exec('wmctrl -r "myKidesktop" -o 0,0');
     		if($data["cmd"]!="test") exec('wmctrl -r "myKidesktop" -b add,below');

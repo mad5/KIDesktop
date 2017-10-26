@@ -34,7 +34,8 @@ class IndexController extends \classes\AbstractController {
 			$data = array();
 			foreach($eintraege as $eintrag) {
 				if(trim($eintrag->getHosts())!="") {
-					$H = explode("\n", $eintrag->getHosts());
+					$H = str_replace(",", "\n", $eintrag->getHosts());
+					$H = explode("\n", $H);
 					for($i=0;$i<count($H);$i++) {
 						if(trim($H[$i])!="") $data[] = trim($H[$i]);
 					}
