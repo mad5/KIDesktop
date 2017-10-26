@@ -24,7 +24,7 @@ $config = array(
 	"mainkey"=> $GLOBALS["UserHash"],
 	"key"=> $GLOBALS["RechnerHash"],
 	"hosts"=> array(
-		"kidesktop.mad5.de"
+		"kidesktop.mad5.de", "fonts.gstatic.com"
 	)
 );
 

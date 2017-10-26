@@ -59,6 +59,7 @@ class InitController extends \classes\AbstractCrudController {
 			);
 		$bereichRepository = new \Bereiche\Repository\BereichRepository();
 		$be_pk = $bereichRepository->insert($data);
+		
 		#vd($be_pk);
 		$data = array(
 			"ei_name" => "Antolin",
@@ -73,6 +74,146 @@ class InitController extends \classes\AbstractCrudController {
 			);
 		$eintragRepository = new \Eintrag\Repository\EintragRepository();
 		$ei_pk = $eintragRepository->insert($data);
+		
+		
+		
+		$data = array(
+			"be_name" => "Spiele",
+			"be_icon" => "../resources/images/games.png",
+			"be_reihenfolge" => 2,
+			"be_freigegeben" => 1,
+			"be_bu_fk" => $bu_pk,
+			);
+		$bereichRepository = new \Bereiche\Repository\BereichRepository();
+		$be_pk = $bereichRepository->insert($data);
+		
+	
+		#vd($be_pk);
+		$data = array(
+			"ei_name" => "Summe bilden",
+			"ei_icon" => "../resources/images/calc.png",
+			"ei_kategorie" => 0,
+			"ei_bereich" => $be_pk,
+			"ei_rechner" => $re_pk,
+			"ei_typ" => "webseite",
+			"ei_befehl" => "http://www.onlywebpro.com/demo/fun_math/play_fun_math.html",		
+			"ei_hosts" => "onlywebpro.com,ajax.googleapis.com",
+			"ei_bu_fk" => $bu_pk,
+			);
+		$eintragRepository = new \Eintrag\Repository\EintragRepository();
+		$ei_pk = $eintragRepository->insert($data);
+		
+		
+		#vd($be_pk);
+		$data = array(
+			"ei_name" => "Paare finden",
+			"ei_icon" => "../resources/images/cards.png",
+			"ei_kategorie" => 0,
+			"ei_bereich" => $be_pk,
+			"ei_rechner" => $re_pk,
+			"ei_typ" => "webseite",
+			"ei_befehl" => "http://onlywebpro.com/demo/twin_matchup/play.html",		
+			"ei_hosts" => "onlywebpro.com,ajax.googleapis.com",
+			"ei_bu_fk" => $bu_pk,
+			);
+		$eintragRepository = new \Eintrag\Repository\EintragRepository();
+		$ei_pk = $eintragRepository->insert($data);
+		
+		
+		
+		$data = array(
+			"be_name" => "Audio",
+			"be_icon" => "../resources/images/audio.png",
+			"be_reihenfolge" => 3,
+			"be_freigegeben" => 1,
+			"be_bu_fk" => $bu_pk,
+			);
+		$bereichRepository = new \Bereiche\Repository\BereichRepository();
+		$be_pk = $bereichRepository->insert($data);
+		
+		
+		
+		$data = array(
+			"be_name" => "Video",
+			"be_icon" => "../resources/images/video.png",
+			"be_reihenfolge" => 4,
+			"be_freigegeben" => 1,
+			"be_bu_fk" => $bu_pk,
+			);
+		$bereichRepository = new \Bereiche\Repository\BereichRepository();
+		$be_pk = $bereichRepository->insert($data);
+		
+	
+		#vd($be_pk);
+		$data = array(
+			"ei_name" => "Kindertube",
+			"ei_icon" => "../resources/images/kindertube.png",
+			"ei_kategorie" => 0,
+			"ei_bereich" => $be_pk,
+			"ei_rechner" => $re_pk,
+			"ei_typ" => "webseite",
+			"ei_befehl" => "http://www.kindertube.de/",		
+			"ei_hosts" => "kindertube.de,youtube.com",
+			"ei_bu_fk" => $bu_pk,
+			);
+		$eintragRepository = new \Eintrag\Repository\EintragRepository();
+		$ei_pk = $eintragRepository->insert($data);
+		
+		$data = array(
+			"be_name" => "Nachrichten+Wissen",
+			"be_icon" => "../resources/images/news.png",
+			"be_reihenfolge" => 5,
+			"be_freigegeben" => 1,
+			"be_bu_fk" => $bu_pk,
+			);
+		$bereichRepository = new \Bereiche\Repository\BereichRepository();
+		$be_pk = $bereichRepository->insert($data);
+		
+	
+		#vd($be_pk);
+		$data = array(
+			"ei_name" => "logo!",
+			"ei_icon" => "../resources/images/logo.png",
+			"ei_kategorie" => 0,
+			"ei_bereich" => $be_pk,
+			"ei_rechner" => $re_pk,
+			"ei_typ" => "webseite",
+			"ei_befehl" => "https://www.zdf.de/kinder/logo/",		
+			"ei_hosts" => "zdf.de,module.zdf.de",
+			"ei_bu_fk" => $bu_pk,
+			);
+		$eintragRepository = new \Eintrag\Repository\EintragRepository();
+		$ei_pk = $eintragRepository->insert($data);
+		
+		$data = array(
+			"ei_name" => "Geolino",
+			"ei_icon" => "../resources/images/geolino.jpg",
+			"ei_kategorie" => 0,
+			"ei_bereich" => $be_pk,
+			"ei_rechner" => $re_pk,
+			"ei_typ" => "webseite",
+			"ei_befehl" => "http://www.geo.de/geolino",		
+			"ei_hosts" => "geo.de,static.geo.de",
+			"ei_bu_fk" => $bu_pk,
+			);
+		$eintragRepository = new \Eintrag\Repository\EintragRepository();
+		$ei_pk = $eintragRepository->insert($data);
+		
+		$data = array(
+			"ei_name" => "Karte",
+			"ei_icon" => "../resources/images/map.png",
+			"ei_kategorie" => 0,
+			"ei_bereich" => $be_pk,
+			"ei_rechner" => $re_pk,
+			"ei_typ" => "webseite",
+			"ei_befehl" => "http://www.openstreetmap.org/#map=4/49.58/12.92",		
+			"ei_hosts" => "openstreetmap.org,a.tile.openstreetmap.org,b.tile.openstreetmap.org,c.tile.openstreetmap.org,d.tile.openstreetmap.org",
+			"ei_bu_fk" => $bu_pk,
+			);
+		$eintragRepository = new \Eintrag\Repository\EintragRepository();
+		$ei_pk = $eintragRepository->insert($data);
+		
+		
 		#vd($ei_pk);
 		#exit;
 	}

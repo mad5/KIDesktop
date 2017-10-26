@@ -68,7 +68,7 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 		
 		
 		</div>
-		<div style="width:66%;float:left" id="level2">
+		<div style="width:300px;float:left" id="level2">
 			<div style="padding: 20px;box-sizing:border-box;">
 			
 			
@@ -95,6 +95,10 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 <script>
 
 	$(function() {
+			setTimeout(function() {
+					$('#level1').css("width", $(window).width()-310);
+			}, 1000);
+			$(window).on("resize", function() { $('#level1').css("width", $(window).width()-310); });
 			var clock = new Clock( "#clock", {"background": "resources/clock-background.png"} );
 	});
 
@@ -174,7 +178,7 @@ var features = {
 			for(var i=0;i<bereiche.length;i++) {
 				html += "<div style='float:left;padding:20px;text-align:center;cursor:pointer;' onclick=\"openBereich('"+bereiche[i].id+"', '"+bereiche[i].titel+"');\">";
 				html += '<img src="'+bereiche[i].icon+'" height=100><br>';
-				html += "<span style='background-color:rgba(255,255,255,0.3);padding:3px;'>"+bereiche[i].titel+"</span>";
+				html += "<span style='background-color:rgba(255,255,255,0.5);color:black;padding:3px;'>"+bereiche[i].titel+"</span>";
 				html += "</div>";
 			}
 			

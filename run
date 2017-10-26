@@ -77,8 +77,9 @@ fi
 
 if hash php 2>/dev/null; then
     # init samba shares if defined
-    nohup php tools/samba.php 2>/dev/null
+    #nohup php tools/samba.php 2>/dev/null
 
+    # start kideskadm as api-service
     nohup php -S 0.0.0.0:8000 -t kideskadm/ &
     
     # start websocket-server as daemon
@@ -111,7 +112,6 @@ if hash chromium-browser 2>/dev/null; then
     fi
 
 	nohup chromium-browser \
-	--disable-translate \
 	--disable-autofill-keyboard-accessory-view \
 	--disable-default-apps \
 	--no-first-run \
@@ -123,6 +123,7 @@ if hash chromium-browser 2>/dev/null; then
 	--disable-notifications \
 	--disable-prompt-on-repost \
 	--disable-popup-blocking \
+	--disable-translate \
 	--app=http://localhost:2022/?$1\&$timestamp 2>/dev/null
 else
 	echo "chromium-browser not installed"

@@ -16,12 +16,18 @@
 					<input type="checkbox" value="<?= $entry->getPk(); ?>" name="multi[]" class="crudMulti"></td>
 
 <td><?= $entry->getName(); ?></td>
-<td align=center width=60><?= ($entry->getIcon()!="" ? $entry->getIcon()->getImageTag(array("style"=>"max-height:50px;")) : ''); ?></td>
+<td align=center width=60>
+	<?= ($entry->getIcon()!="" ? $entry->getIcon()->getImageTag(array("style"=>"max-height:50px;")) : ''); ?>
+</td>
 <!-- <td><?= $entry->getKategorieName(); ?></td> -->
 <td><?= $entry->getBereichName(); ?></td>
 <td><?= $entry->getRechnerKind(); ?></td>
 <td><?= $entry->getTyp(); ?></td>
-<td><?= $entry->getBefehl(); ?></td>
+<td>
+<div style='max-width:200px;overflow:hidden;text-overflow: ellipsis;'>
+<?= $entry->getBefehl(); ?>
+</div>
+</td>
 
 
 				<?= \classes\CrudViewHelper::getDefaultActions($entry); ?>
