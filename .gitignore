@@ -3,7 +3,6 @@
 *.log
 *.bak
 *.pid
-/public/apps/
 /tools/mnt/
 /tools/samba.conf
 /.smbcred
