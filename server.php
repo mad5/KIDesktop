@@ -33,13 +33,16 @@ $io->on('connection', function(\PHPSocketIO\Socket $socket){
     	if($data["action"]=="reboot") {
     		exec("sudo reboot");
     	}
+    	if($data["action"]=="terminal") {
+    		exec("lxterminal");
+    	}
     	
     	if($data["action"]=="initrun") {
     		exec('wmctrl -r "myKidesktop" -o 0,0');
     		if($data["cmd"]!="test") exec('wmctrl -r "myKidesktop" -b add,below');
     		exec('wmctrl -r "myKidesktop" -b add,maximized_vert,maximized_horz');
     		if($data["cmd"]=="full") sleep(1);
-		if($data["cmd"]=="full") exec("xdotool mousemove 100 10 && xdotool click 3 && xdotool key t");
+    		if($data["cmd"]=="full") exec("xdotool mousemove 100 10 && xdotool click 3 && xdotool key t");
     	}
     	
     	if($data["action"]=="openurl") {

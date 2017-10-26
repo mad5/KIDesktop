@@ -131,6 +131,19 @@ class InitController extends \classes\AbstractCrudController {
 		$bereichRepository = new \Bereiche\Repository\BereichRepository();
 		$be_pk = $bereichRepository->insert($data);
 		
+		$data = array(
+			"ei_name" => "Kiraka",
+			"ei_icon" => "../resources/images/kiraka.png",
+			"ei_kategorie" => 0,
+			"ei_bereich" => $be_pk,
+			"ei_rechner" => $re_pk,
+			"ei_typ" => "webseite",
+			"ei_befehl" => "http://localhost:2022/apps/radio.html?url=http://wdr-kiraka-live.icecast.wdr.de/wdr/kiraka/live/mp3/128/stream.mp3&title=Kiraka",		
+			"ei_hosts" => "wdr-kiraka-live.icecast.wdr.de,wdr.de",
+			"ei_bu_fk" => $bu_pk,
+			);
+		$eintragRepository = new \Eintrag\Repository\EintragRepository();
+		$ei_pk = $eintragRepository->insert($data);
 		
 		
 		$data = array(
@@ -198,6 +211,22 @@ class InitController extends \classes\AbstractCrudController {
 			);
 		$eintragRepository = new \Eintrag\Repository\EintragRepository();
 		$ei_pk = $eintragRepository->insert($data);
+		
+		$data = array(
+			"ei_name" => "Kiraka",
+			"ei_icon" => "../resources/images/kiraka.png",
+			"ei_kategorie" => 0,
+			"ei_bereich" => $be_pk,
+			"ei_rechner" => $re_pk,
+			"ei_typ" => "webseite",
+			"ei_befehl" => "http://www1.wdr.de/kinder/radio/kiraka/index.html",		
+			"ei_hosts" => "www1.wdr.de,wdr-kiraka-live.icecast.wdr.de,wdr.de",
+			"ei_bu_fk" => $bu_pk,
+			);
+		$eintragRepository = new \Eintrag\Repository\EintragRepository();
+		$ei_pk = $eintragRepository->insert($data);
+		
+		
 		
 		$data = array(
 			"ei_name" => "Karte",

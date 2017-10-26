@@ -111,8 +111,13 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 		<img src="resources/up.png" width="64" class="up" onclick="$('#adminpanel').slideToggle();return false;">
 	</div>
 	<div style="display:none;background-color:rgba(255,255,255,0.7);border-radius:20px;padding:20px;position:absolute;right:10px;bottom:90px;overflow:" id="adminpanel">
+	
+		<div style='padding:5px;' class="adminmenu"><a href='#' onclick="terminal();return false;" style='color:black;text-decoration:none;'>Terminal</a></div>
+	
 		<div style='padding:5px;' class="adminmenu"><a href='#' onclick="shutdown();return false;" style='color:black;text-decoration:none;'>Ausschalten</a></div>
 		<div style='padding:5px;' class="adminmenu"><a href='#' onclick="reboot();return false;" style='color:black;text-decoration:none;'>Neu starten</a></div>
+				
+
 	</div>
 	
 <div style="display:none;position:absolute;right:30px;bottom:30px;width:500px;height:400px;overflow:autoflow:auto;background-color:white;" id="dbgx"></div>
@@ -129,13 +134,13 @@ document.write('<'+'script src="./config.js?x='+(new Date()).getTime()+'"><'+'/s
 
 function shutdown() {
 	socket.emit('action', {"action": "shutdown"} );
-	
 }
 function reboot() {
-	socket.emit('action', {"action": "reboot"} );
-	
+	socket.emit('action', {"action": "reboot"} );	
 }
-
+function terminal() {
+	socket.emit('action', {"action": "terminal"} );
+}
 	$(function() {
 			setTimeout(function() {
 					$('#level1').css("width", $(window).width()-310);
