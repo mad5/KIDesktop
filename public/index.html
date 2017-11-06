@@ -149,7 +149,7 @@ function terminal() {
 			var clock = new Clock( "#clock", {"background": "resources/clock-background.png"} );
 			
 			updatedatum();
-			setTimeout(function() { updatedatum(); }, 60000);		                       
+			setInterval(function() { updatedatum(); }, 60000);		                       
 	});
 	
 	function add0(X) {
