@@ -36,6 +36,7 @@ fi
 if [ "$1" = "admin" ]
 then
 	nohup php -S 0.0.0.0:8000 -t kideskadm/ &
+	nohup php -S 0.0.0.0:8008 -t public/apps/ &
 	
 	nohup chromium-browser \
 	--disable-translate \
