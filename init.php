@@ -38,9 +38,9 @@ foreach($hosts as $host) {
 	}
 }
 
-#file_put_contents("/etc/hosts", $c);
+file_put_contents("/etc/hosts", $c);
 
-#unlink("/etc/resolv.conf");
+unlink("/etc/resolv.conf");
 #sleep(5);
 #unlink("/etc/resolv.conf");
 
