@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+
+
+if [ -f "/etc/resolv.conf.orig" ]; then
+	# copy resolv.conf back from backup
+	sudo cp -f /etc/resolv.conf.orig /etc/resolv.conf
+fi
+
+# remove resolv.conf and set hosts-entries
+sudo php init.php
+

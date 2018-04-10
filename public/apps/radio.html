@@ -22,6 +22,7 @@ a {
 $(function() {
 		var param = window.location.href;
 		param = param.substr(param.indexOf("?")+1);
+		param = param.replace("&amp;", "&");
 		params = param.split("&");
 		console.log(params);
 		var pa = {};
